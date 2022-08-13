@@ -1,0 +1,40 @@
+Created a folder and used cmd cd command to open cmd in this folder.
+Used git clone < > to clone git repo. in this location.
+in vs code, open new terminal and click right + and select git bash
+
+-------------
+next step is to create a conda environment : lets take name a venv ( means virtual environment ) 
+check readme file
+
+py -3 -m venv <name of environment>
+
+now after creation, we also need t0 activate this virtual environment
+<name of environment>\Scripts\activate
+
+
+
+-----------
+creation of requirements.txt file
+to install mentioned packages of requirements.txt : use pip install -r requirements.txt
+
+To Run any flask application
+flask run   
+
+-----------
+
+now we have to save this changes into github:
+now we dont need to send the venv file in github as thats hige, so to ignore this file to  be sent
+in github : add this file into gitignore
+(its already added into gitignore)
+
+Follow these commands in cmd terminal to check git :
+
+git status
+this will tell whic files are to be tracked and untracked in git
+
+git add <filename>
+to add individual files : this will add mentioned file in git
+
+git add .
+to add all untracked files in git
+
