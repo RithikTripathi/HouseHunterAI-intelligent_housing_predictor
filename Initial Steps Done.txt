@@ -88,3 +88,12 @@ FURTHER DOCKER CODE IS PRESENT IN  12 JUNE CLASS
 for final deployment : create a folder .github
 in this create a folder <workflows>
 in this folder create a file <main.yaml>
+
+code is mentioned there, further go to github project settings and there in secrets, there we need to manage
+our heroku secrets so that app could be deployed
+(new repository secret )
+
+In github at too menu u can see actions : there we can see if there are any issues in ci/CD
+after fixing that we can re run jobs from there only and see things getting deployed to heroku
+
+now on heroku if we click run app, app is up and running
