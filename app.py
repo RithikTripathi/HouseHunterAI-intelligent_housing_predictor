@@ -4,4 +4,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'CI/CD Pipeline has been Estab;ished!!!'
+    return 'CI/CD Pipeline has been Estalished!!!'
