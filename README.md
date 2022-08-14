@@ -25,10 +25,6 @@ Creation of requirements.txt file -> for installing mentioned packsges
 pip install -r requirements.txt
 ```
 
-To Run any flask application
-```
-flask run   
-```
 
 
 

@@ -38,3 +38,53 @@ to add individual files : this will add mentioned file in git
 git add .
 to add all untracked files in git
 
+BUT now after adding we also need to commit : commit is like saving the version
+
+git log
+to see all the previous version in git 
+
+
+To COMMIT changes to git
+git commit -m "message"
+message is the text u will see in git log for this particular commit
+
+git push -u origin branch_name_that_you_want_to_push
+to send version/changes to github
+After executing the above command, it will ask for a password. Provide your updated password.
+
+
+git remote -v
+to check the fetch and push url of our git project
+
+----------------------
+now next step is to connect github to heroku
+
+To setup CI/CD pipeline in heroku we need 3 information : 
+1. HEROKU_EMAIL : rktripathi710@gmail.com
+2. HEROKU_API_KEY : 8069e479-7324-4ab0-9a12-c8687f974bc0
+( for api key go to heroku my profile and in bottom there is the api key mentioned)
+3. HEROKU_APP_NAME : mlprojj ( name of app on heroku)
+
+
+--------------------
+
+now next step is to create a DOCKER file
+just create a new file named "Dockerfile"
+also , 
+create a .dockerignore file to set files which docker is going to ignore
+
+
+BUILD DOCKER IMAGE
+```
+docker build -t <image_name>:<tagname> .
+```
+note : name of image must be in lowercase
+
+DOCKER IS NOT REQUIRED AT THIS TIME
+FURTHER DOCKER CODE IS PRESENT IN  12 JUNE CLASS
+
+-----------------------
+
+for final deployment : create a folder .github
+in this create a folder <workflows>
+in this folder create a file <main.yaml>
