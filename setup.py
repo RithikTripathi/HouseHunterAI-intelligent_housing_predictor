@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from typing import List
 
 # Declaring Variables for Setup function
@@ -18,7 +18,7 @@ def get_reuqirements_list()->List[str]:
     Return : list containing name of libraries mentioned in requirements.txt
     """
     with open(REQUIREMENTS_FILE_NAME) as requirement_file:
-        return requirement_file.readline()
+        return requirement_file.readline().remove("-e .")
 
 
 # Setting up setup()
@@ -27,7 +27,7 @@ setup(
     version = Version,
     author = Author,
     description = Descriptuon,
-    packages = Packages,
+    packages = find_packages(),
     install_requires = get_reuqirements_list() # name automatically changes from Requirement_file_name to install_requires
 )
 

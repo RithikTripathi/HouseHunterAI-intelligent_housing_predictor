@@ -114,3 +114,43 @@ this init file states that this folder is a python module / package
 
 Creating a function which will read all lib mentioned in requirements.txt fileso that user do not 
 need to run pip command and can be done through this setup file only
+
+we can install setup using > python setup.py install
+
+===================
+another step whcih could be done is :
+in setup.py : 
+from setuptools import  setup, find_packages
+and
+paskages = find_packages()
+in setup() # in setup.py file
+
+
+basically : it goes to each folder and if any folde rcontains __init__.py in it, it will update that filder as packages in the setup()
+
+======================
+
+=============
+When we use setup.pdf file for installing all of the required libraries and packages then there is
+ basically no issues. 
+ But when we are using PIP Command Pipe command to actually install of the requirements from the
+  requirements.txt file what happens is that.It actually installs all of the things mentioned 
+  inside the requirements.TXT file but misses the housing package like the main package in which 
+  __init__ file is there. So for that we put one more command in our requirement. txt file 
+  which will also install of the Modules 
+  
+required file : -e .
+this -e .
+is to be kept in requirements.txt file  for the above mentuoned purpose
+
+
+but we will be removing this from our custom functoin later on as we are further using find_packages()
+which is equivlent to -e .
+( if we are using )
+
+Note : -e . will  not work without setup.py file
+======================
+
+
+
+
