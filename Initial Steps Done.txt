@@ -160,7 +160,7 @@ Inside housing folder :
     there will be entity package
 
 ---------
-LOGGER : 
+
 
 
 
