@@ -151,6 +151,13 @@ which is equivlent to -e .
 Note : -e . will  not work without setup.py file
 ======================
 
+Inside housing folder : 
+    There will be exception package for exception handling
+    There will be Logger package for logging
+    there will be pipeline packagethere will be stages package
+    there will be component package
+    there will be config package
+    there will be entity package
 
 
 
