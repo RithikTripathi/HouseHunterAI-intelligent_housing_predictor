@@ -1,3 +1,5 @@
+numpy
 Flask
-docker
 gunicorn
+sklearn
+pandas

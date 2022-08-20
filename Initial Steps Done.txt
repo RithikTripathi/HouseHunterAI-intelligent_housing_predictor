@@ -97,3 +97,20 @@ In github at too menu u can see actions : there we can see if there are any issu
 after fixing that we can re run jobs from there only and see things getting deployed to heroku
 
 now on heroku if we click run app, app is up and running
+======================
+Note : we have used gunicord library to run flask application but that dsent support windoes
+but when we upload code to github, code there runs on ubuntu vm, and hence this library is supported
+======================================================
+
+create a setyp.py file
+: we use pip install cocmmand everytime to install requirements right, this could be 
+done by setup file easily
+just like games executing
+
+
+Also create a main project file <housing> and create a __init__.py file in this
+this init file states that this folder is a python module / package
+
+
+Creating a function which will read all lib mentioned in requirements.txt fileso that user do not 
+need to run pip command and can be done through this setup file only
