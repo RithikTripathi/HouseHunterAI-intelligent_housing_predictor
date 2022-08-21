@@ -161,6 +161,17 @@ Inside housing folder :
 
 ---------
 
+Eg : explanation of __str__ and __repr__ in Exception __init__.py
+class Demo:
+    def _str_(self):
+        return"We are understanding str function"
+    def repr_(self):
+        return"This is repr function"
+Demo()
+o/p : This is repr function
+print(Demo())
+o/p : We are understanding str function
 
+------------
 
 

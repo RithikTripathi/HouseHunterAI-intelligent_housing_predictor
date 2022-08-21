@@ -33,14 +33,16 @@ class Housing_Exception(Exception):
 
         return error_message
 
-    # whenever we try to print details of any object, what info. should be displayed, that we can define in str()
+    # whenever we try to print any object, what info. should be displayed, that we can define in str()
     # it is a dunder method
     def __str__(self):
         return self.error_message
 
     
+    # returns a printable representation of the given object.
     def __repr__(self) -> str:
         return Housing_Exception.__name__.str()
 
-
+    # in short : how a object should be visible with print() => __Str__ and without print() => __repr__
+    
 
