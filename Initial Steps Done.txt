@@ -174,4 +174,5 @@ o/p : We are understanding str function
 
 ------------
 
-
+ nametuple() : if we give name to each element in a tuple, that tuple can be called as nbametuple
+ and hence as it is a tuple, we cant edit anyhthing later
