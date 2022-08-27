@@ -2,9 +2,12 @@ from housing.util.util import read_yaml_file
 from housing.entity.config_entity import DataIngestionConfig, DataTransformationConfig, DataValidationConfig, ModelEvaluationConfig, ModelTrainerConfig, ModelPusherConfig, TrainingPipelineConfig
 from housing.constant import *
 from housing.exception import Housing_Exception
-import os
+from housing.logger import logging
+import os, sys
 
 
+# this class has nothing to do with any creation/ deletion
+# this only gives configuration information
 class Configuration : 
 
     # these return is already specified as NamedTuple
@@ -37,4 +40,17 @@ class Configuration :
         pass
 
     def get_training_pipeline_config(self) -> TrainingPipelineConfig:
-        pass
+        try:
+            # reading configuration information
+            training_pipeline_config = self.config_info[TRAINING_PIPELINE_CONFIG_KEY]
+            artifact_dir = os.path.join(ROOT_DIR,
+                            training_pipeline_config[TRAINING_PIPELINE_NAME_KEY],
+                            training_pipeline_config[TRAINING_PIPELINE_ARTIFACT_DIR_KEY]
+                            )
+
+            trianing_pipeline_config = TrainingPipelineConfig(artifact_dir=artifact_dir)
+            logging.info(f"Training pipeline config : {trianing_pipeline_config}")
+            return trianing_pipeline_config
+
+        except Exception as e:
+            raise Housing_Exception(e,sys) from e

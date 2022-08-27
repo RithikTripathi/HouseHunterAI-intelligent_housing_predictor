@@ -188,3 +188,9 @@ in housing, create a folder util
 
 in this create a util.py file
  
+ --------------
+
+ setting up configuration.py
+
+ 1. set up self in init
+ 2 . set up get_training_pipeline_config
