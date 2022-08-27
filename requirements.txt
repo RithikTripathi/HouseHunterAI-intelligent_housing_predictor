@@ -4,3 +4,4 @@ gunicorn
 sklearn
 pandas
 ipykernel
+PyYAML

@@ -176,3 +176,15 @@ o/p : We are understanding str function
 
  nametuple() : if we give name to each element in a tuple, that tuple can be called as nbametuple
  and hence as it is a tuple, we cant edit anyhthing later
+------------
+
+creation of a config folder in main list
+note : another ocnfig was in Housing folder structure, it is not the same
+
+this config folder will contain a config.yaml file
+---------
+
+in housing, create a folder util
+
+in this create a util.py file
+ 
