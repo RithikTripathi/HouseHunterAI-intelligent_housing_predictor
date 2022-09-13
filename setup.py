@@ -9,6 +9,8 @@ Description = " Full Stack Data Scientist Machine Learning Housing Project"
 Packages = ['housing']
 REQUIREMENTS_FILE_NAME = "requirements.txt"
 
+HYPHEN_E_DOT = "-e ."
+
 # here we are basically reading the requirements.txt file and returning a list of that
 # -> specifies what is going to be returned : i.e will return a list having string values in it.
 # -> this part could be ignored but its a good practice to increase readability of our code
