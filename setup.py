@@ -5,7 +5,7 @@ from typing import List
 Project_Name = "housinig-predictor"
 Version = "0.0.1"
 Author = "Rithik Tripathi"
-Descriptuon = " Full Stack Data Scientist Machine Learning Housing Project"
+Description = " Full Stack Data Scientist Machine Learning Housing Project"
 Packages = ['housing']
 REQUIREMENTS_FILE_NAME = "requirements.txt"
 
@@ -17,7 +17,7 @@ def get_reuqirements_list()->List[str]:
     This function is responsible to return list of requirements as strings mentioned in requirements.txt
     Return : list containing name of libraries mentioned in requirements.txt
     """
-    with open(REQUIREMENTS_FILE_NAME) as requirement_file:
+    with open(REQUIREMENTS_FILE_NAME, "r", encoding="utf-8") as requirement_file:
         return requirement_file.readlines()
 
 
@@ -26,7 +26,7 @@ setup(
     name = Project_Name,
     version = Version,
     author = Author,
-    description = Descriptuon,
+    description = Description,
     packages = find_packages(),
     install_requires = get_reuqirements_list() # name automatically changes from Requirement_file_name to install_requires
 )

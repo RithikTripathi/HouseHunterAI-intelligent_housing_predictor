@@ -5,3 +5,4 @@ sklearn
 pandas
 ipykernel
 PyYAML
+-e .

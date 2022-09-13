@@ -16,13 +16,55 @@ class Configuration :
                 config_file_path:str = CONFIG_FILE_PATH,
                 current_time_stamp:str = CURRENT_TIME_STAMP
                 ) -> None:
-        
-        self.config_info = read_yaml_file(file_path=config_file_path)
-        self.training_pipeline_config = self.get_training_pipeline_config()
-        self.time_stamp = current_time_stamp
+        try:
+            self.config_info = read_yaml_file(file_path=config_file_path)
+            self.training_pipeline_config = self.get_training_pipeline_config()
+            self.time_stamp = current_time_stamp
+        except Exception as e:
+            raise Housing_Exception(e,sys) from e
 
     def get_data_ingestion_config(self) -> DataIngestionConfig: 
-        pass
+        try:
+            data_ingestion_info = self.config_info[DATA_INGESTION_CONFIG_KEY]
+            dataset_download_url = data_ingestion_info[DATA_INGESTION_DOWNLOAD_URL_KEY]
+            artifact_dir = self.training_pipeline_config.artifact_dir
+
+           
+            # the folder should be inside artifact folder in housing, it should be names according to the timeline in which it was created
+            data_ingestion_artifact_dir = os.path.join(
+                artifact_dir, DATA_INGESTION_ARTIFACT_DIR, self.time_stamp
+            )
+            tgz_download_dir = os.path.join(
+                data_ingestion_artifact_dir, data_ingestion_info[DATA_INGESTION_RAW_DATA_DIR_KEY]
+            )
+            raw_data_dir = os.path.join(
+                data_ingestion_artifact_dir, data_ingestion_info[DATA_INGESTION_RAW_DATA_DIR_KEY]
+            )
+            # train and test files will be inside ingested data folder in artifact folder
+            ingested_data_dir = os.path.join(
+                data_ingestion_artifact_dir, data_ingestion_info[DATA_INGESTION_INGESTED_DIR_NAME_KEY]
+            )
+            ingested_train_dir = os.path.join(
+                ingested_data_dir, data_ingestion_info[DATA_INGESTION_TRAIN_DIR_KEY]
+            )
+            ingested_test_dir =  os.path.join(
+                ingested_data_dir, data_ingestion_info[DATA_INGESTION_TEST_DIR_KEY]
+            )
+
+            data_ingestion_config = DataIngestionConfig(
+                                    dataset_download_url = dataset_download_url, 
+                                    tgz_download_dir = tgz_download_dir, 
+                                    raw_data_dir = raw_data_dir, 
+                                    ingested_train_dir = ingested_train_dir, 
+                                    ingested_test_dir = ingested_test_dir
+                                    )
+
+            logging.info(f"Data Ingestion Config : {data_ingestion_config}")
+            return data_ingestion_config
+
+
+        except Exception as e:
+            raise Housing_Exception(e, sys) from e
 
     def get_data_validiation_config(self) ->DataValidationConfig:
         pass
@@ -39,6 +81,8 @@ class Configuration :
     def get_model_pusher_config(self) -> ModelPusherConfig:
         pass
 
+    
+    # sample output : TrainingPipelineConfig(artifact_dir='c:\\Users\\rkt7k\\Desktop\\iNeuron Data Science\\Projects iNeuron\\MLPROJ\\housing\\artifact')
     def get_training_pipeline_config(self) -> TrainingPipelineConfig:
         try:
             # reading configuration information
