@@ -1,4 +1,8 @@
+from cgi import test
+from curses import raw
+from tkinter import E
 from turtle import down
+from xxlimited import Str
 from housing.entity.config_entity import DataIngestionConfig
 from housing.entity.artifact_entity import DataIngestionArtifact
 from housing.exception import Housing_Exception
@@ -6,6 +10,9 @@ from housing.logger import logging
 import sys, os
 import tarfile # to extract zip file
 from six.moves import urllib # to download data
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import StratifiedShuffleSplit 
 
 
 class DataIngestion:
@@ -51,15 +58,84 @@ class DataIngestion:
         except Exception as e:
             raise Housing_Exception(e,sys) from e
 
-    def extract_tgz_file(self):
-        pass
+    def extract_tgz_file(self, tgz_file_path:str):
+        try:
+            # storing of data after extraction
+            raw_data_dir = self.data_ingestion_config.raw_data_dir 
 
-    def split_data_as_train_test(self):
-        pass
+            if os.path.exists(raw_data_dir):
+                os.remove(raw_data_dir)
+            os.makedirs(raw_data_dir, exist_ok=True)
+
+            logging.info(f"Extracting tgz file : [{tgz_file_path}] into dir: [{raw_data_dir}]")
+            # reading file
+            with tarfile.open(tgz_file_path) as housing_tgz_file_obj:
+                housing_tgz_file_obj.extractall(path=raw_data_dir)
+            logging.info(f"Extraction Completed")
+
+        except Exception as e:
+            raise Housing_Exception(e,sys) from e
+
+    def split_data_as_train_test(self) -> DataIngestionArtifact:
+        try:
+            raw_data_dir = self.data_ingestion_config.raw_data_dir
+            file_name = os.listdir(raw_data_dir)[0]
+            housing_file_path = os.path.join(raw_data_dir, file_name)
+
+            #creating dataframe
+            logging.info(f"Reading csv File : [{housing_file_path}]")
+            housing_data_frame = pd.read_csv(housing_file_path)
+
+            housing_data_frame["income_cat"] = pd.cut(
+                housing_data_frame["median_income"],
+                bins=[0.0, 1.5, 3.0, 4.5, 6.0, np.inf],
+                labels=[1,2,3,4,5]
+            )
+
+            # using stratified test and train split
+            logging.info(f"Splitting Data into Train and Test")
+            strat_train_set = None
+            strat_test_set = None
+            split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
+
+            for train_index, test_index in split.split(housing_data_frame, housing_data_frame["income_cat"]):
+                strat_train_set = housing_data_frame.loc[train_index].drop(["income_cat"], axis=1)
+                strat_test_set = housing_data_frame.loc[test_index].drop(["income_cat"], axis=1)
+
+            train_file_path = os.path.join(self.data_ingestion_config.ingested_train_dir, file_name)
+            test_file_path = os.path.join(self.data_ingestion_config.ingested_test_dir, file_name)
+
+            if strat_train_set is not None:
+                os.makedirs(self.data_ingestion_config.ingested_train_dir, exist_ok=True)
+                logging.info(f"Exporting training dataset to file: [{train_file_path}]")
+                strat_train_set.to_csv(train_file_path, index=False)
+
+            if strat_test_set is not None:
+                os.makedirs(self.data_ingestion_config.ingested_test_dir, exist_ok=True)
+                logging.info(f"Exporting test dataset to file : [{test_file_path}]")
+                strat_test_set.to_csv(test_file_path, index=False)
+
+            data_ingestion_artifact = DataIngestionArtifact(train_file_path=train_file_path,
+                                                            test_file_path=test_file_path,
+                                                            is_ingested=True,
+                                                            message=f"Data Ingestion Completed Successfully."
+                                                            )
+
+            logging.info(f"Data Ingestion Artifact : [{data_ingestion_artifact}]") 
+            return data_ingestion_artifact                                
+
+        except Exception as e:
+            raise Housing_Exception(e,sys) from e
 
     def initiate_data_ingestion(self) -> DataIngestionArtifact:
         try:
             # downloading the file and obtaining file location
             tgz_file_path = self.download_housing_data()
+            self.extract_tgz_file(tgz_file_path=tgz_file_path)
+            return self.split_data_as_train_test()
+
         except Exception as e:
-            raise Housing_Exception(e, sys)
+            raise Housing_Exception(e, sys) from e
+
+    def __del__(self):
+        logging.info(f"{'='*20} Data Ingestion Log Completed. {'='*20} \n\n")

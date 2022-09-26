@@ -194,3 +194,11 @@ in this create a util.py file
 
  1. set up self in init
  2 . set up get_training_pipeline_config
+
+
+
+ --------
+ stopped noting down for some time 
+ --------
+
+
