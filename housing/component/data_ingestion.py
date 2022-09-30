@@ -1,8 +1,8 @@
-from cgi import test
-from curses import raw
-from tkinter import E
-from turtle import down
-from xxlimited import Str
+# from cgi import test
+# from curses import raw
+# from tkinter import E
+# from turtle import down
+# from xxlimited import Str
 from housing.entity.config_entity import DataIngestionConfig
 from housing.entity.artifact_entity import DataIngestionArtifact
 from housing.exception import Housing_Exception

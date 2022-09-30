@@ -1,3 +1,9 @@
+Fact : 
+- if we want to run suppose a file logo.py which is in main structure. we can use in cmd : python run logo.py
+but
+- if we have same logo.py in a folder , Extras and then we need to run it, we will write : python run Extras/logo.py
+
+
 Created a folder and used cmd cd command to open cmd in this folder.
 Used git clone < > to clone git repo. in this location.
 in vs code, open new terminal and click right + and select git bash

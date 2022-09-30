@@ -72,7 +72,7 @@ class Configuration :
     def get_data_transformation_config(self) -> DataTransformationConfig:
         pass
 
-    def get_model_trailer_config(self) -> ModelTrainerConfig:
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
         pass
 
     def get_model_evaluation_config(self) -> ModelEvaluationConfig:
