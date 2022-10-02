@@ -22,19 +22,43 @@
 
 # config.get_data_ingestion_config()
 
-from housing.pipeline.pipeline import Pipeline
-from housing.exception import Housing_Exception
-from housing.logger import logging
+# checking data ingestion --------------
+# from housing.pipeline.pipeline import Pipeline
+# from housing.exception import Housing_Exception
+# from housing.logger import logging
 
 
-def main():
-    try:
-        pipeline = Pipeline()
-        pipeline.run_pipeline()
-    except Exception as e:
-        logging.error(f"{e}")
-        print(e)
+# def main():
+#     try:
+#         pipeline = Pipeline()
+#         pipeline.run_pipeline()
+#     except Exception as e:
+#         logging.error(f"{e}")
+#         print(e)
     
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
+# Data Ingestion Done ----------------
+
+# checking if we are getting data validation config------------
+# from housing.config.configuration import Configuration
+# from housing.exception import Housing_Exception
+# from housing.logger import logging
+
+# def main():
+#     try:
+#         data_validation_config = Configuration().get_data_validiation_config()
+#         print(data_validation_config)
+#     except Exception as e:
+#         logging.error(f"{e}")
+#         print(e)
+    
+
+# if __name__ == "__main__":
+#     main()
+
+# Data validaiton configuration being received successfully ------------
+
+
+

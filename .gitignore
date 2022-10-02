@@ -130,3 +130,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# exclusing artifact folder as it contains only data and no code
+housing/artifact
