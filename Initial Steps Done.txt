@@ -208,3 +208,5 @@ in this create a util.py file
  --------
 
 
+USING EVIDENTLY LIBRARY TO VALIDIATE DATA DRIFT
+pip install EVIDENTLY
