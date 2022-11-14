@@ -62,11 +62,48 @@
 
 
 
-# Data Validiation Checking ----------------
+# # Data Validiation Checking ----------------
+
+# from housing.logger import logging
+# from housing.pipeline.pipeline import Pipeline
+
+
+# def main():
+#     try:
+#         pipeline = Pipeline()
+#         pipeline.run_pipeline()
+#     except Exception as e:
+#         logging.error(f"{e}")
+#         print(e)
+    
+
+# if __name__ == "__main__":
+#     main()
+
+
+# Data Validiation Config Checking ----------------
+
+# from housing.logger import logging
+# from housing.pipeline.pipeline import Pipeline
+# from housing.config.configuration import Configuration
+
+
+# def main():
+#     try:
+#         data_transformation_config = Configuration().get_data_transformation_config()
+#         print(data_transformation_config)
+#     except Exception as e:
+#         logging.error(f"{e}")
+#         print(e)
+    
+
+# if __name__ == "__main__":
+#     main()
+
+
 
 from housing.logger import logging
 from housing.pipeline.pipeline import Pipeline
-
 
 def main():
     try:

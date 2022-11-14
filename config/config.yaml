@@ -1,3 +1,5 @@
+# content will be available in a dictionary format
+
 training_pipeline_config:
   # name for the entire pipeline
   pipeline_name: housing

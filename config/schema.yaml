@@ -1,3 +1,6 @@
+# database schema : content will be available in a dictionary format
+
+
 columns:
   longitude: float
   latitude: float
