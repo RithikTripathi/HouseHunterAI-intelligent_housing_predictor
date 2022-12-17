@@ -37,7 +37,8 @@ BestModel = namedtuple("BestModel", ["model_serial_number",
 MetricInfoArtifact = namedtuple("MetricInfoArtifact",
                                 ["model_name", "model_object", "train_rmse", "test_rmse", "train_accuracy",
                                  "test_accuracy", "model_accuracy", "index_number"])
-
+# model accuracy here is the average of training and testing
+# index number is the index of that model whichever is giving us the best accuracy
 
 
 def evaluate_classification_model(model_list: list, X_train:np.ndarray, y_train:np.ndarray, X_test:np.ndarray, y_test:np.ndarray, base_accuracy:float=0.6)->MetricInfoArtifact:
@@ -84,8 +85,10 @@ def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.n
 
             # Calculating harmonic mean of train_accuracy and test_accuracy
             model_accuracy = (2 * (train_acc * test_acc)) / (train_acc + test_acc)
-            diff_test_train_acc = abs(test_acc - train_acc)
-            
+            diff_test_train_acc = abs(test_acc - train_acc) # to understand overfitting / underfitting
+
+            # just liike f1 score which is harmonic mean of precision and recall. We used here as it gives higher weightage to the lower accuracy and vice versa
+
             #logging all important metric
             logging.info(f"{'>>'*30} Score {'<<'*30}")
             logging.info(f"Train Score\t\t Test Score\t\t Average Score")
@@ -97,10 +100,10 @@ def evaluate_regression_model(model_list: list, X_train:np.ndarray, y_train:np.n
             logging.info(f"Test root mean squared error: [{test_rmse}].")
 
 
-            #if model accuracy is greater than base accuracy and train and test score is within certain thershold
+            #if model accuracy is greater than base accuracy and train and test score is within certain thershold (difference is < 5%)
             #we will accept that model as accepted model
-            if model_accuracy >= base_accuracy and diff_test_train_acc < 0.05:
-                base_accuracy = model_accuracy
+            if model_accuracy >= base_accuracy and diff_test_train_acc < 0.05 :
+                base_accuracy = model_accuracy # updating base accuracy so we can keep track of highest score and compare with next model
                 metric_info_artifact = MetricInfoArtifact(model_name=model_name,
                                                         model_object=model,
                                                         train_rmse=train_rmse,
@@ -175,11 +178,15 @@ class ModelFactory:
     @staticmethod
     def update_property_of_class(instance_ref:object, property_data: dict):
         try:
+            # checking if received args is in dictionary or not
             if not isinstance(property_data, dict):
                 raise Exception("property_data parameter required to dictionary")
             print(property_data)
+
+            # iterating th. each key and values
             for key, value in property_data.items():
                 logging.info(f"Executing:$ {str(instance_ref)}.{key}={value}")
+                # using setattr() to dynamically set values of each parameter
                 setattr(instance_ref, key, value)
             return instance_ref
         except Exception as e:
@@ -201,6 +208,7 @@ class ModelFactory:
             module = importlib.import_module(module_name)
             # get the class, will raise AttributeError if class cannot be found
             logging.info(f"Executing command: from {module} import {class_name}")
+            # loading the class of the loaded module
             class_ref = getattr(module, class_name)
             return class_ref
         except Exception as e:
@@ -234,7 +242,7 @@ class ModelFactory:
             
             message = f'{">>"* 30} f"Training {type(initialized_model.model).__name__} Started." {"<<"*30}'
             logging.info(message)
-            grid_search_cv.fit(input_feature, output_feature)
+            grid_search_cv.fit(input_feature, output_feature) # training started
             message = f'{">>"* 30} f"Training {type(initialized_model.model).__name__}" completed {"<<"*30}'
             grid_searched_best_model = GridSearchedBestModel(model_serial_number=initialized_model.model_serial_number,
                                                              model=initialized_model.model,
@@ -254,22 +262,33 @@ class ModelFactory:
         """
         try:
             initialized_model_list = []
+            # going th each model in model.yaml : eg: model 0, model 1 : there are here caLLed as serial numbers
             for model_serial_number in self.models_initialization_config.keys():
 
                 model_initialization_config = self.models_initialization_config[model_serial_number]
+                # now suppose our model 1 was linear reg.,  we need to import it
+                # this takes care of dynamically importing and creating a object of algorithm
                 model_obj_ref = ModelFactory.class_for_name(module_name=model_initialization_config[MODULE_KEY],
                                                             class_name=model_initialization_config[CLASS_KEY]
                                                             )
+                # initializing an object of the model
                 model = model_obj_ref()
                 
+                # once object is loaded, we have to set up the parameters of the module (mentioned as PARAMS in model.yaml)
+
+                # checking if parameters available in the file or not
                 if PARAM_KEY in model_initialization_config:
+                    # creating dictionary from the parameter key
                     model_obj_property_data = dict(model_initialization_config[PARAM_KEY])
+
+                    # calling function which will set the passed properties to the passed model
                     model = ModelFactory.update_property_of_class(instance_ref=model,
                                                                   property_data=model_obj_property_data)
 
                 param_grid_search = model_initialization_config[SEARCH_PARAM_GRID_KEY]
                 model_name = f"{model_initialization_config[MODULE_KEY]}.{model_initialization_config[CLASS_KEY]}"
 
+                # at this stage,  model is not trained. We created a object, updated the porperties and performed parameter search. So only initialized the model yet
                 model_initialization_config = InitializedModelDetail(model_serial_number=model_serial_number,
                                                                      model=model,
                                                                      param_grid_search=param_grid_search,
@@ -283,6 +302,7 @@ class ModelFactory:
         except Exception as e:
             raise Housing_Exception(e, sys) from e
 
+    # for a single model
     def initiate_best_parameter_search_for_initialized_model(self, initialized_model: InitializedModelDetail,
                                                              input_feature,
                                                              output_feature) -> GridSearchedBestModel:
@@ -303,6 +323,7 @@ class ModelFactory:
         except Exception as e:
             raise Housing_Exception(e, sys) from e
 
+    # more than 1 model
     def initiate_best_parameter_search_for_initialized_models(self,
                                                               initialized_model_list: List[InitializedModelDetail],
                                                               input_feature,
@@ -334,6 +355,7 @@ class ModelFactory:
         except Exception as e:
             raise Housing_Exception(e, sys) from e
 
+    # for camparing models after receiveing best parameters
     @staticmethod
     def get_best_model_from_grid_searched_best_model_list(grid_searched_best_model_list: List[GridSearchedBestModel],
                                                           base_accuracy=0.6
@@ -343,7 +365,7 @@ class ModelFactory:
             for grid_searched_best_model in grid_searched_best_model_list:
                 if base_accuracy < grid_searched_best_model.best_score:
                     logging.info(f"Acceptable model found:{grid_searched_best_model}")
-                    base_accuracy = grid_searched_best_model.best_score
+                    base_accuracy = grid_searched_best_model.best_score  # updating to check if any other model has more score 
 
                     best_model = grid_searched_best_model
             if not best_model:

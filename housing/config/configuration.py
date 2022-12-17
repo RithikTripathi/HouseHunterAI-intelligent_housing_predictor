@@ -213,7 +213,22 @@ class Configuration :
 
 
     def get_model_pusher_config(self) -> ModelPusherConfig:
-        pass
+        try:
+            time_stamp = f"{datetime.now().strtime('%Y%m%d%H%M%S')}"
+            model_pusher_config_info = self.config_info[MODEL_PUSHER_CONFIG_KEY]
+            export_dir_path = os.path.join(
+                ROOT_DIR,
+                model_pusher_config_info[MODEL_PUSHER_MODEL_EXPORT_DIR_KEY],
+                time_stamp
+            )
+            model_pusher_config = ModelPusherConfig(export_dir_path= export_dir_path)
+
+            logging.info(f"Model Pusher Config {model_pusher_config}")
+
+            return model_pusher_config
+
+        except Exception as e:
+            raise Housing_Exception(e,sys) from e 
 
     
     # sample output : TrainingPipelineConfig(artifact_dir='c:\\Users\\rkt7k\\Desktop\\iNeuron Data Science\\Projects iNeuron\\MLPROJ\\housing\\artifact')
