@@ -13,7 +13,7 @@
 
 
         <form action="/predict" method="post">
-            <legend>Housing Estimation Form</legend>
+            <legend>Input for HouseHunterAI</legend>
             <div class="mb-3">
                 <label class="form-label">Longitude</label>
                 <input class="form-control" type="text" name="longitude" placeholder="Enter a value of longitude"
@@ -82,7 +82,7 @@
             </div>
             <div class="mb-3">
 
-                <input class="btn btn-primary" type="submit" value="Predict Median House Value" required />
+                <input class="btn btn-primary" type="submit" value="Ask HouseHunterAI to Predict" required />
             </div>
 
         </form>
@@ -91,7 +91,7 @@
     <div class="col-md-6 col-sm-12 col-xs-6 col-lg-6">
         <div class="card">
             <div class="card-header">
-              California housing price
+              HouseHunterAI : Intelligent Housing Predictor
             </div>
             <div class="card-body">
         {% if context['housing_data'] is not none %}
@@ -123,13 +123,13 @@
 
         {% else %}
        
-              <h5 class="card-title">Submit Form</h5>
-              <p class="card-text">Kindly provide necessary information to estimate housing price in california</p>
+              <h5 class="card-title">Input Feed for AI </h5>
+              <p class="card-text">Kindly provide necessary information for HouseHunterAI to Predict your Preferred House Price. </p>
             
          
 
         {% endif %}
-        Go to <a href="/" class="btn btn-primary">Home</a>
+        <a href="/" class="btn btn-primary">Home</a>
     </div>
 </div>
     </div>

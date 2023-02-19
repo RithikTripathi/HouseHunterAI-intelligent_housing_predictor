@@ -73,7 +73,7 @@ def render_artifact_dir(req_path):
 
 @app.route('/view_experiment_hist', methods = ['GET', 'POST'])
 def view_experiment_history():
-    experiment_df = Pipeline.get_experiment_status()
+    experiment_df = Pipeline.get_experiments_status()
     context = {
         "experiment" : experiment_df.to_html(classes = "table table-striped col-12")
     }
@@ -92,7 +92,7 @@ def train():
         message = "Trianing is already in progress."
 
     context = {
-        "experiment" : pipeline.get_experiment_status().to_html(classes = 'table table-striped col-12'),
+        "experiment" : pipeline.get_experiments_status().to_html(classes = 'table table-striped col-12'),
         "message" : message
     }
 
@@ -152,6 +152,10 @@ def saved_models_dir(req_path):
 
     # Return 404 if path dosent exist
     if not os.path.exists(abs_path):
+        return abort(404)
+
+    # Check if path is a file and serve    
+    if os.path.isfile(abs_path):
         return send_file(abs_path)
 
     # show directory contents
@@ -166,7 +170,7 @@ def saved_models_dir(req_path):
     return render_template('saved_models_files.html', result = result)
 
 
-@app.route("/update_model_coonfig", methods=['GET', 'POST'])
+@app.route("/update_model_config", methods=['GET', 'POST'])
 def update_model_config():
     try:
         if request.method == "POST":
@@ -216,7 +220,7 @@ def render_log_dir(req_path):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5000, debug=True)
 
 
 

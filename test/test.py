@@ -102,13 +102,44 @@
 
 
 
+from housing.util.util import read_yaml_file
+from housing.entity.config_entity import DataIngestionConfig, DataTransformationConfig, DataValidationConfig, ModelEvaluationConfig, ModelTrainerConfig, ModelPusherConfig, TrainingPipelineConfig
+from housing.constant import *
+from housing.exception import Housing_Exception
+from housing.logger import logging
+import os, sys
+from housing.config.configuration import Configuration 
+
+
 from housing.logger import logging
 from housing.pipeline.pipeline import Pipeline
 
 def main():
     try:
-        pipeline = Pipeline()
-        pipeline.run_pipeline()
+        config_file_path= CONFIG_FILE_PATH
+        current_time_stamp = CURRENT_TIME_STAMP
+
+        config_info = read_yaml_file(file_path=config_file_path)
+        training_pipeline_config = config_info[TRAINING_PIPELINE_CONFIG_KEY]
+        artifact_dir = os.path.join(ROOT_DIR,
+                        training_pipeline_config[TRAINING_PIPELINE_NAME_KEY],
+                        training_pipeline_config[TRAINING_PIPELINE_ARTIFACT_DIR_KEY]
+                        )
+
+        trianing_pipeline_config = TrainingPipelineConfig(artifact_dir=artifact_dir)
+
+
+        # experiment_file_path = os.path.join(
+        #         config.training_pipeline_config.artifact_dir,
+        #         EXPERIMENT_DIR_NAME,
+        #         EXPERIMENT_FILE_NAME
+        #     )
+
+  
+
+        print(Configuration.training_pipeline_config.artifact_dir)
+
+        # print( experiment_file_path)
     except Exception as e:
         logging.error(f"{e}")
         print(e)

@@ -57,7 +57,7 @@ table-layout: fixed;
                 aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="/">California Housing Price Estimation</a>
+            <a class="navbar-brand" href="/">HouseHunterAI : Intelligent Housing Predictor</a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -80,16 +80,82 @@ table-layout: fixed;
                     </li>
                 </ul>
             </div>
+
+            <!-- <div> <img src="https://www.linkpicture.com/q/Rithik_Logo.jpg" style="width:20%;height:20% ;  float: right; "   />   </div> -->
+            <div style="height: 50px;"> <img src="https://www.linkpicture.com/q/Rithik_Logo.jpg" style="height:100% ;  float: right; "   />   </div>
+
+
         </div>
         </div>
     </nav>
 
 
+    <style>
+        #background {
+            opacity: 1;
+            width: 100%;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            height: 500px;
+            /* position: fixed; */
+        }
+        #menu_sidebar {
+            
+            /* position: fixed; */
+        }
+        .list-group{
+            /* background-color:gray; */
+            margin-top: 20px ;
+            margin-left: -60px;
+            border-radius: 10px;
+           
+        }
+        .list-group li:hover{
+            /* height: 50px; */
+            color: gray;
+        }
+        .text-wh{
+            margin-top: -500px;
+            text-align: center;
+        }
+
+
+    </style>
+
+
+
+
+    <div>
+        <!-- <img src="https://img.freepik.com/premium-photo/home-sweet-home-business-investment-real-estate-concept-background_1421-3957.jpg?w=2000" -->
+        <img src="https://img.freepik.com/free-photo/cottage-glen-etive-scotland_53876-121571.jpg?w=900&t=st=1676743541~exp=1676744141~hmac=425204fe63c1bbb7bf13f6f73cbeccfa0feb9aa7b0cf066a58a3066df2739de3"
+            id="background">
+
+        <div>
+            <br>
+            <br>
+            <h3 class="text-wh" style="color:rgb(255, 255, 255); text-shadow: 0 0 3px rgb(0, 0, 0), 0 0 5px #686868; font-size:xxx-large;  "  >HouseHunterAI</h3>
+                                <br>
+                                
+								<h4 class="text-wh mx-auto my-4" style="color:rgb(209, 209, 209); text-shadow: 0 0 3px rgb(0, 0, 0), 0 0 5px #686868; font-size:xx-large;"><b>Get Informed Decisions about Affordable Homes in California using Data Science.</b></h4>
+								<br> <br>
+                                <br> <br> <br>
+                                <br> <br> <br>
+                                <br>
+								<h4 class="text-wh mx-auto my-4" style="color: white;  font-size:medium; "  ><strong> Developed by @ Rithik Tripathi</strong></h4>
+								
+
+        </div>
+    </div>
+
+
+
+
 
     <div class="row" style="margin-left: 5%;margin-right:5%;">
        
-        <div class="col-md-2 col-sm-12 col-lg-2">
-            <ul class=" list-group ">
+        <div class="col-md-2 col-sm-12 col-lg-2"  id="menu_sidebar">
+            <ul class=" list-group " >
                 <li class="list-group-item py-1  {% if 'log' in request.path %} active {% endif %}">
                     <a  style=" text-decoration: none;color:black" href="/logs">View Logs</a>
                 </li>
@@ -100,10 +166,10 @@ table-layout: fixed;
                     <a style=" text-decoration: none;color:black" href="/saved_models">View Trained Model</a>
                 </li>
                 <li class="list-group-item py-1 {% if 'predict' in request.path %} active {% endif %}">
-                    <a style=" text-decoration: none;color:black" href="/predict">Estimate Housing Price</a>
+                    <a style=" text-decoration: none;color:green" href="/predict">Use HouseHunterAI</a>
                 </li>
                 <li class="list-group-item py-1 {% if 'train' in request.path %} active {% endif %}">
-                    <a style=" text-decoration: none;color:black" href="/train">Train Housing Price Estimator</a>
+                    <a style=" text-decoration: none;color:Red" href="/train">Train HouseHunterAI</a>
                 </li>
                 
 
@@ -135,28 +201,24 @@ table-layout: fixed;
         <div class="container pt-4">
             <!-- Section: Social media -->
             <section class="mb-4">
-                <!-- Facebook -->
-                <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
-                    data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
-
-                <!-- Twitter -->
-                <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
-                    data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
-
-                <!-- Google -->
-                <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
-                    data-mdb-ripple-color="dark"><i class="fab fa-google"></i></a>
-
-                <!-- Instagram -->
-                <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
-                    data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
 
                 <!-- Linkedin -->
-                <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
-                    data-mdb-ripple-color="dark"><i class="fab fa-linkedin"></i></a>
+                <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://www.linkedin.com/in/rithik-tripathi-data-scientist/" role="button"
+                    data-mdb-ripple-color="dark" target="_blank"><i class="fab fa-linkedin"></i></a>
+
                 <!-- Github -->
-                <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
-                    data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
+                <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://github.com/RithikTripathi" role="button"
+                    data-mdb-ripple-color="dark" target="_blank"><i class="fab fa-github"></i></a>
+
+                <!-- Google -->
+                <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://medium.com/@rithik.tripathi9" role="button"
+                    data-mdb-ripple-color="dark" target="_blank"><i class="fab fa-google"></i></a>
+
+                <!-- Instagram -->
+                <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://www.instagram.com/rithik_tripathi/?igshid=ZDdkNTZiNTM%3D" role="button"
+                    data-mdb-ripple-color="dark" target="_blank"><i class="fab fa-instagram"></i></a>
+
+                
             </section>
             <!-- Section: Social media -->
         </div>
@@ -164,8 +226,8 @@ table-layout: fixed;
 
         <!-- Copyright -->
         <div class="text-center text-light p-3" style="background-color: rgba(3, 36, 67, 0.504);">
-            © 2022 Copyright:
-            <a class="text-light" href="https://ineuron.ai/">iNeuron Intelligence Pvt Limited</a>
+            Developed by 
+            <a class="text-light" href="https://www.linkedin.com/in/rithik-tripathi-data-scientist/">Rithik Tripathi @ Data Science Practitioner</a>
         </div>
         <!-- Copyright -->
     </footer>

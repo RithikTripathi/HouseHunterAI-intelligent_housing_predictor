@@ -39,9 +39,11 @@ class Pipeline(Thread):
     experiment: Experiment = Experiment(*([None] *11 ))
     experiment_file_path = None
 
-    def __init__(self, config: Configuration)  -> None:
+    def __init__(self, config : Configuration)  -> None:
         try:
+
             os.makedirs(config.training_pipeline_config.artifact_dir, exist_ok= True)
+
             Pipeline.experiment_file_path = os.path.join(
                 config.training_pipeline_config.artifact_dir,
                 EXPERIMENT_DIR_NAME,
@@ -50,8 +52,6 @@ class Pipeline(Thread):
             super().__init__(daemon=False, name="pipeline")
 
             self.config = config
-
-       
 
         except Exception as e:
             raise Housing_Exception(e,sys) from e
@@ -213,8 +213,9 @@ class Pipeline(Thread):
 
                 experiment_dict.update({
                     "created_time_stamp" : [datetime.now()],
-                    "experiment_file_path" : [os.path.basename[Pipeline.experiment.experiment_file_path]]
+                    "experiment_file_path" : [os.path.basename(Pipeline.experiment.experiment_file_path)]
                 })
+
 
                 experiment_report = pd.DataFrame(experiment_dict)
 
@@ -223,7 +224,7 @@ class Pipeline(Thread):
                 if os.path.exists(Pipeline.experiment_file_path):
                     experiment_report.to_csv(Pipeline.experiment_file_path, index= False, header= False, mode= "a")
                 else:
-                    experiment_report.to_csv(Pipeline.experiment_file_path, index= False, header= True, mode= "w")
+                    experiment_report.to_csv(Pipeline.experiment_file_path, mode="w", index=False, header=True)
             else:
                 print("First Start Experiment")
 
@@ -232,9 +233,15 @@ class Pipeline(Thread):
 
 
     @classmethod
-    def get_experiment_status(cls, limit:5) -> pd.DataFrame:
+    def get_experiments_status(cls, limit: int = 5) -> pd.DataFrame:
         try:
-            pass
+            
+            if os.path.exists(Pipeline.experiment_file_path):
+                df = pd.read_csv(Pipeline.experiment_file_path)
+                limit = -1 * int(limit)
+                return df[limit:].drop(columns=["experiment_file_path", "initialization_timestamp"], axis=1)
+            else:
+                return pd.DataFrame()
 
         except Exception as e:
             raise Housing_Exception(e,sys) from e
