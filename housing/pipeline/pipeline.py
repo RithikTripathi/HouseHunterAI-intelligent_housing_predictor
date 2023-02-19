@@ -31,7 +31,7 @@ Experiment = namedtuple("Experiment", ["experiment_id", "initialization_timestam
 # the moment an object of pipeline is generated , we create a initialization pipeline.
 # artifact time stamp : timestamp when the artifact was created: sow e can know which experiment generated which specific artifact and its related info.
 # experiment file path : a csv file inside experiment directory to store the tabular data on UI
-# running status : if running status is true then we will simply ignore any more pipeline running requests
+# running status : if running status is true then we will simply ignore any more pipeline running requestss
 
 class Pipeline(Thread):
 
