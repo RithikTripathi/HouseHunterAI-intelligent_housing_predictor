@@ -11,10 +11,10 @@
 
 {% block content %}
 
-
+<style> #mymessage{color: red; font-weight: bold;}  </style>
 Go to <a class="btn btn-primary" href="/">Home</a>
 <div class="row">
-    <div class="alert alert-primary" role="alert">
+    <div id="mymessage" class="alert alert-primary" role="alert">
         {{ context['message']}}
       </div>
   

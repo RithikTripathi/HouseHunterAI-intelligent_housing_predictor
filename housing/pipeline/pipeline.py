@@ -22,6 +22,7 @@ from housing.component.model_evaluation import ModelEvaluation
 from housing.component.model_pusher import ModelPusher
 from housing.constant import EXPERIMENT_DIR_NAME, EXPERIMENT_FILE_NAME
 
+from housing.config.configuration import Configuration 
 
 Experiment = namedtuple("Experiment", ["experiment_id", "initialization_timestamp", "artifact_time_stamp",
                                         "running_status", "start_time", "stop_time", "execution_time", "message",
@@ -37,18 +38,23 @@ class Pipeline(Thread):
 
     # as in experiment namedTuple we have 11 params, we are initializing None to everyone of them
     experiment: Experiment = Experiment(*([None] *11 ))
-    experiment_file_path = None
+    #experiment_file_path = None
+    config = Configuration()
+    experiment_file_path = os.path.join(
+                config.training_pipeline_config.artifact_dir,
+                EXPERIMENT_DIR_NAME,
+                EXPERIMENT_FILE_NAME)
 
     def __init__(self, config : Configuration)  -> None:
         try:
 
             os.makedirs(config.training_pipeline_config.artifact_dir, exist_ok= True)
 
-            Pipeline.experiment_file_path = os.path.join(
-                config.training_pipeline_config.artifact_dir,
-                EXPERIMENT_DIR_NAME,
-                EXPERIMENT_FILE_NAME
-            )
+            # Pipeline.experiment_file_path = os.path.join(
+            #     config.training_pipeline_config.artifact_dir,
+            #     EXPERIMENT_DIR_NAME,
+            #     EXPERIMENT_FILE_NAME
+            # )
             super().__init__(daemon=False, name="pipeline")
 
             self.config = config
@@ -233,7 +239,7 @@ class Pipeline(Thread):
 
 
     @classmethod
-    def get_experiments_status(cls, limit: int = 5) -> pd.DataFrame:
+    def get_experiments_status(cls, limit: int = 9) -> pd.DataFrame:
         try:
             
             if os.path.exists(Pipeline.experiment_file_path):
