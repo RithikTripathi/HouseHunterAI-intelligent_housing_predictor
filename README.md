@@ -50,6 +50,9 @@ If you have any feedback, please reach out to me at rithik.tripathi7@gmail.com
 ![image](https://user-images.githubusercontent.com/63400981/220161252-f0edbdea-d052-401a-ba0d-e93061c49739.png)
 
 
+### Quick Glimpse of Interface
+https://user-images.githubusercontent.com/63400981/220164963-c35317f5-af1c-4556-ad17-f64d08123386.mp4
+
 
 
 
