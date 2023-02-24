@@ -2,7 +2,7 @@
 
 Aim of this website is to deploy a machine learning layer that can predict the prices of houses in California based on features such as location, size, number of bedrooms and bathrooms, age of the property, and other related factors. The model will be trained on a subset of the data and evaluated on another subset to ensure accuracy and performance. Algorithms such as regression, decision trees, and random forests will be used to analyze the data and make predictions.
 
-## Features
+## Features ✅
 
 - Log Files : Logging is Active. Complete Pipeline Logs are Available here. Check Log Reports for Crashes.
 - Artifact Files : Individual Artifacts (Raw, PreProcessed, Validiated) Data are Available.
@@ -10,7 +10,7 @@ Aim of this website is to deploy a machine learning layer that can predict the p
 - Activate HouseHunterAI : Provide Input Parameters & Let HouseHunterAI Predict Estimated price for California Houses.
 - Train HouseHunterAI : HouseHunterAI could be trained on the Data feed by Data Ingestion step.
 
-## Project Pipeline
+## Project Pipeline 👇
 
 - Initialising Configurations
 - Data Ingestion
