@@ -1,4 +1,4 @@
-## HouseHunterAI : Get Informed Decisions about Affordable Homes in California using Data Science.
+## HouseHunterAI : Get Informed Decisions about Affordable Homes in California using Data Science & Machine Learning.
 
 Aim of this website is to deploy a machine learning layer that can predict the prices of houses in California based on features such as location, size, number of bedrooms and bathrooms, age of the property, and other related factors. The model will be trained on a subset of the data and evaluated on another subset to ensure accuracy and performance. Algorithms such as regression, decision trees, and random forests will be used to analyze the data and make predictions.
 
